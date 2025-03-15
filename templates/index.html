@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+        }
+        table {
+            width: 50%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Movie Recommendation System</h1>
+
+    <label for="userId">Enter User ID:</label>
+    <input type="number" id="userId" min="1" placeholder="Enter User ID">
+    <button onclick="getRecommendations()">Get Recommendations</button>
+
+    <h2>Recommended Movies</h2>
+    <table id="moviesTable">
+        <tr>
+            <th>Movie Title</th>
+            <th>Predicted Rating</th>
+        </tr>
+    </table>
+
+    <script>
+        function getRecommendations() {
+            let userId = document.getElementById("userId").value;
+            let url = `http://127.0.0.1:5000/recommend?user_id=${userId}&num_recommendations=5`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let table = document.getElementById("moviesTable");
+                    table.innerHTML = "<tr><th>Movie Title</th><th>Predicted Rating</th></tr>";
+
+                    data.forEach(movie => {
+                        let row = table.insertRow();
+                        let titleCell = row.insertCell(0);
+                        let ratingCell = row.insertCell(1);
+                        titleCell.innerHTML = movie.title;
+                        ratingCell.innerHTML = movie.predicted_rating.toFixed(2);
+                    });
+                })
+                .catch(error => console.log("Error fetching recommendations:", error));
+        }
+    </script>
+
+</body>
+</html>
