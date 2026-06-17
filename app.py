@@ -8,7 +8,7 @@ with open("svd_model.pkl", "rb") as model_file:
     svd = pickle.load(model_file)
 
 # Load datasets
-movies = pd.read_csv("movies_metadata.csv", low_memory=False)[["id", "title"]]
+movies = pd.read_csv("dataset/movies_metadata.csv", low_memory=False)[["id", "title"]]
 movies = movies.rename(columns={"id": "movieId"})
 movies["movieId"] = pd.to_numeric(movies["movieId"], errors="coerce").dropna().astype(int)
 
