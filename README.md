@@ -190,6 +190,18 @@ Predicted Rating:
 
 ---
 
+## 📸 Application Screenshots
+
+### Home Page
+
+![Home Page](images/home_page.png)
+
+### Recommendation Results
+
+![Recommendation Results](images/prediction_result.png)
+
+---
+
 ## 📈 Future Improvements
 
 * Content-Based Recommendation System
